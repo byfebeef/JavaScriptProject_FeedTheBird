@@ -86,14 +86,25 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/character.js":
+/*!**************************!*\
+  !*** ./src/character.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function character(options) {\n    this.pos = options.pos;\n    this.vel = options.vel;\n    this.radius = options.radius;\n    this.color = options.color;\n    this.game = options.game;\n}\n\n\n// character.prototype.draw(ctx)\n\ncharacter.prototype.draw = function (ctx) {\n    ctx.beginPath();\n    ctx.arc(...this.pos, this.radius, 0, 2 * Math.PI);\n    ctx.StrokeStyle = this.color;\n    ctx.lineWidth = 2;\n    ctx.stroke();\n\n    ctx.fillStyle = this.color;\n    ctx.fill();\n}\n\n// character.prototype.move = function () {\n//     console.log(this.pos);\n//     // debugger\n//     this.pos[0] += this.vel[0];\n//     this.pos[1] += this.vel[1];\n\n\n//     if (this.pos[1] < 0 || this.pos[1] > 900) {\n//         this.vel[1] = -this.vel[1];\n//     }\n\n//     if (this.pos[0] < 0 || this.pos[0] > 900) {\n//         this.vel[0] = -this.vel[0];\n//     }\n\n\n//     // this.pos = this.game.wrap(this.pos);\n// }\n\n// character.prototype.isCollidedWith = function (otherObject) {\n//     let x_1 = this.pos[0];\n//     let y_1 = this.pos[1];\n\n//     let x_2 = otherObject.pos[0];\n//     let y_2 = otherObject.pos[1];\n\n//     const distance = function Dist([x_1, y_1], [x_2, y_2]) {\n//         return sqrt((x_1 - x_2) ** 2 + (y_1 - y_2) ** 2);\n//     }\n\n//     let totalRadii = this.radius + otherObject.radius;\n\n\n//     if (totalRadii < distance()) {\n//         return true;\n//     } else {\n//         return false;\n//     }\n// }\n\n\n\nmodule.exports = character;\n\n//# sourceURL=webpack:///./src/character.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-eval("console.log(\"Webpack is up and running bro\");\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("const character = __webpack_require__(/*! ./character */ \"./src/character.js\");\n\nwindow.character = character;\n\nwindow.addEventListener('DOMContentLoaded', (event) => {\n    const canvas = document.getElementById('game-canvas');\n    const ctx = canvas.getContext('2d');\n    x = new character({\n        pos: [30, 30],\n        vel: [10, 10],\n        radius: 10,\n        color: \"#FFDFFA\"\n    });\n\n    // document.body.style.backgroundColor = \"#414CBC \";\n\n    // let as = new Game();\n    // as.draw(ctx);\n\n\n    // let gameView = new GameView(ctx);\n    // gameView.start();\n\n\n\n});\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ })
 

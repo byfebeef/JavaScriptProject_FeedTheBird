@@ -1,13 +1,16 @@
-function startGame() {
-    myGameView.start();
+const Game = require("./game.js");
+
+
+function GameView(ctx) {
+    this.game = new Game();
+    this.ctx = ctx;
 }
 
-var myGameView = {
-    canvas: document.createElement("canvas"),
-    start: function () {
-        this.canvas.width = 480;
-        this.canvas.height = 270;
-        this.context = this.canvas.getContext("2d");
-        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-    }
+GameView.prototype.start = function () {
+    setInterval(() => {
+        this.game.step();
+        this.game.draw(this.ctx);
+    }, 30);
 }
+
+module.exports = GameView;
