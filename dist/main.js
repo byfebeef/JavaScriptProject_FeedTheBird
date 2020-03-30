@@ -86,14 +86,36 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/character.js":
-/*!**************************!*\
-  !*** ./src/character.js ***!
-  \**************************/
+/***/ "./src/block.js":
+/*!**********************!*\
+  !*** ./src/block.js ***!
+  \**********************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("function character(options) {\n    this.pos = options.pos;\n    this.vel = options.vel;\n    this.radius = options.radius;\n    this.color = options.color;\n    this.game = options.game;\n}\n\n\n// character.prototype.draw(ctx)\n\ncharacter.prototype.draw = function (ctx) {\n    ctx.beginPath();\n    ctx.arc(...this.pos, this.radius, 0, 2 * Math.PI);\n    ctx.StrokeStyle = this.color;\n    ctx.lineWidth = 2;\n    ctx.stroke();\n\n    ctx.fillStyle = this.color;\n    ctx.fill();\n}\n\n// character.prototype.move = function () {\n//     console.log(this.pos);\n//     // debugger\n//     this.pos[0] += this.vel[0];\n//     this.pos[1] += this.vel[1];\n\n\n//     if (this.pos[1] < 0 || this.pos[1] > 900) {\n//         this.vel[1] = -this.vel[1];\n//     }\n\n//     if (this.pos[0] < 0 || this.pos[0] > 900) {\n//         this.vel[0] = -this.vel[0];\n//     }\n\n\n//     // this.pos = this.game.wrap(this.pos);\n// }\n\n// character.prototype.isCollidedWith = function (otherObject) {\n//     let x_1 = this.pos[0];\n//     let y_1 = this.pos[1];\n\n//     let x_2 = otherObject.pos[0];\n//     let y_2 = otherObject.pos[1];\n\n//     const distance = function Dist([x_1, y_1], [x_2, y_2]) {\n//         return sqrt((x_1 - x_2) ** 2 + (y_1 - y_2) ** 2);\n//     }\n\n//     let totalRadii = this.radius + otherObject.radius;\n\n\n//     if (totalRadii < distance()) {\n//         return true;\n//     } else {\n//         return false;\n//     }\n// }\n\n\n\nmodule.exports = character;\n\n//# sourceURL=webpack:///./src/character.js?");
+eval("\nfunction block(width, height, color, x, y) {\n    this.width = width;\n    this.height = height;\n    this.x = x;\n    this.y = y;\n    // ctx = myGameArea.context;\n    // ctx.fillStyle = color;\n    // ctx.fillRect(this.x, this.y, this.width, this.height);\n}\n\nblock.draw = function (ctx) {\n    ctx.fillStyle = color;\n    ctx.fillRect(this.x, this.y, this.width, this.height);\n}\n\nmodule.exports = block;\n\n//# sourceURL=webpack:///./src/block.js?");
+
+/***/ }),
+
+/***/ "./src/game.js":
+/*!*********************!*\
+  !*** ./src/game.js ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("\nfunction Game() {\n\n}\n\nmodule.exports = Game;\n\n//# sourceURL=webpack:///./src/game.js?");
+
+/***/ }),
+
+/***/ "./src/game_view.js":
+/*!**************************!*\
+  !*** ./src/game_view.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const Game = __webpack_require__(/*! ./game.js */ \"./src/game.js\");\n\n\nfunction GameView(ctx) {\n    this.game = new Game();\n    this.ctx = ctx;\n}\n\nGameView.prototype.start = function () {\n    setInterval(() => {\n        this.game.step();\n        this.game.draw(this.ctx);\n    }, 30);\n}\n\nmodule.exports = GameView;\n\n//# sourceURL=webpack:///./src/game_view.js?");
 
 /***/ }),
 
@@ -101,10 +123,11 @@ eval("function character(options) {\n    this.pos = options.pos;\n    this.vel =
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-eval("const character = __webpack_require__(/*! ./character */ \"./src/character.js\");\n\nwindow.character = character;\n\nwindow.addEventListener('DOMContentLoaded', (event) => {\n    const canvas = document.getElementById('game-canvas');\n    const ctx = canvas.getContext('2d');\n    x = new character({\n        pos: [30, 30],\n        vel: [10, 10],\n        radius: 10,\n        color: \"#FFDFFA\"\n    });\n\n    // document.body.style.backgroundColor = \"#414CBC \";\n\n    // let as = new Game();\n    // as.draw(ctx);\n\n\n    // let gameView = new GameView(ctx);\n    // gameView.start();\n\n\n\n});\n\n//# sourceURL=webpack:///./src/index.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _block__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./block */ \"./src/block.js\");\n/* harmony import */ var _block__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_block__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _game_view__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./game_view */ \"./src/game_view.js\");\n/* harmony import */ var _game_view__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_game_view__WEBPACK_IMPORTED_MODULE_1__);\n\n\n\n\n\n\nwindow.addEventListener('DOMContentLoaded', (event) => {\n    const canvas = document.getElementById('game-canvas');\n    const ctx = canvas.getContext('2d');\n    const player = new _block__WEBPACK_IMPORTED_MODULE_0___default.a(30, 30, 'blue', 10, 120)\n    \n    window.player = player;\n\n    let gameView = new _game_view__WEBPACK_IMPORTED_MODULE_1___default.a(ctx);\n    gameView.start();\n\n\n\n});\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ })
 
